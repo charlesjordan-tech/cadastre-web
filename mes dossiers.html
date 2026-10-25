@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Dossiers - Cadastre Étranger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./cadastre code 2.html">
+    <link rel="stylesheet" href="./page assistance.html">
+    <link rel="stylesheet" href="./recherche.html">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: #f8fafc; color: #0f172a; }
+
+    header { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .logo { font-weight: 700; font-size: 1.15rem; color: #0f172a; }
+    .logo span { color: #0284c7; }
+    nav { display: flex; align-items: center; gap: 1.5rem; }
+    nav a { text-decoration: none; color: #475569; font-weight: 500; font-size: 0.9rem; }
+    nav a.active { color: #0284c7; font-weight: 600; }
+
+    .container { max-width: 1100px; margin: 3rem auto; padding: 0 1.5rem; }
+    .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .btn-new { background-color: #0284c7; color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 0.875rem; }
+
+    /* Table des dossiers */
+    .table-container { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow-x: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+    th { background-color: #f1f5f9; padding: 1rem 1.25rem; font-weight: 600; color: #475569; border-bottom: 1px solid #e2e8f0; }
+    td { padding: 1.25rem; border-bottom: 1px solid #f1f5f9; color: #334155; }
+    tr:last-child td { border-bottom: none; }
+
+    .status { padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 600; font-size: 0.75rem; display: inline-block; }
+    .status-completed { background: #dcfce7; color: #15803d; }
+    .status-pending { background: #fef3c7; color: #b45309; }
+    .status-review { background: #e0f2fe; color: #0369a1; }
+
+    .btn-action { color: #0284c7; text-decoration: none; font-weight: 600; }
+    .btn-action:hover { text-decoration: underline; }
+    .user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+}
+/* ==========================================
+   RÈGLES D'ADAPTATION MOBILE (RESPONSIVE)
+   ========================================== */
+
+/* 1. Sécurité globale : empêche les débordements horizontaux */
+* {
+  box-sizing: border-box;
+}
+
+img, iframe, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 2. Adaptations pour smartphones (écrans de moins de 768px de large) */
+@media (max-width: 768px) {
+  
+  /* Conteneurs principaux : passage en 100% de largeur */
+  body {
+    padding: 0 10px;
+  }
+
+  .container, 
+  .hero-container, 
+  .form-container, 
+  .card-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    margin: 10px 0 !important;
+  }
+
+  /* Transformation des grilles et colonnes en une seule colonne verticale */
+  .grid, 
+  .row, 
+  .form-row,
+  .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  /* Boutons et champs de formulaires ajustés pour les doigts */
+  input, 
+  select, 
+  textarea, 
+  button, 
+  .btn-submit {
+    width: 100% !important;
+    min-height: 48px; /* Taille idéale pour cliquer au toucher */
+    font-size: 16px !important; /* Empêche le zoom automatique sur iPhone */
+  }
+
+  /* Réduction proportionnelle des gros titres */
+  h1 { font-size: 1.6rem !important; }
+  h2 { font-size: 1.3rem !important; }
+  h3 { font-size: 1.1rem !important; }
+}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo">📍 CADASTRE <span>ÉTRANGER</span></div>
+      <nav>
+        <a href="cadastre code 2.html">Accueil</a>
+        <a href="page assistance.html">Assistance</a>
+        <a href="#" class="user-avatar" id="userAvatar" data-fullname="Jean Dupont (Expatrié)" title="Jean Dupont (Expatrié)"></a>
+      </nav>
+    </div>
+    
+  </header>
+
+  <main class="container">
+    <div class="dashboard-header">
+      <div>
+        <h1>Suivi de vos dossiers fonciers</h1>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.25rem;">Consultez l'avancement de vos demandes et téléchargez vos documents certifiés.</p>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>N° de Dossier</th>
+            <th>Type de démarche</th>
+            <th>Parcelle concernée</th>
+            <th>Date d'ouverture</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>#DOS-2026-089</strong></td>
+            <td>Demande d'Extrait de Plan Cadastral</td>
+            <td>Parcelle N° 452</td>
+            <td>12 Fév 2026</td>
+            <td><span class="status status-completed">Disponible</span></td>
+            <td><a href="#" class="btn-action">📥 Télécharger PDF</a></td>
+          </tr>
+          <tr>
+            <td><strong>#DOS-2026-114</strong></td>
+            <td>Vérification de Titre Foncier à Distance</td>
+            <td>Parcelle N° 108</td>
+            <td>01 Mar 2026</td>
+            <td><span class="status status-pending">En cours de vérification</span></td>
+            <td><a href="#" class="btn-action">👁️ Voir détails</a></td>
+          </tr>
+          <tr>
+            <td><strong>#DOS-2025-402</strong></td>
+            <td>Changement de nom / Mutation de propriété</td>
+            <td>Lotissement Central - Lot 12</td>
+            <td>15 Nov 2025</td>
+            <td><span class="status status-review">Complément requis</span></td>
+            <td><a href="#" class="btn-action">📤 Joindre une pièce</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script>
+    // 1. Fonction pour générer une couleur unique et constante basée sur le nom
+    function stringToColor(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      // Génère une teinte HSL harmonieuse (Saturation: 65%, Luminosité: 45%)
+      const h = Math.abs(hash) % 360;
+      return `hsl(${h}, 65%, 45%)`;
+    }
+  
+    // 2. Fonction pour extraire les initiales (ex: "Jean Dupont (Expatrié)" -> "JD")
+    function getInitials(fullName) {
+      // Supprime le texte entre parenthèses comme "(Expatrié)"
+      const cleanName = fullName.replace(/\s*\(.*?\)\s*/g, '').trim();
+      const parts = cleanName.split(/\s+/);
+  
+      if (parts.length === 1) {
+        return parts[0].substring(0, 2).toUpperCase();
+      }
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+  
+    // 3. Application de l'avatar au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+      const avatarElem = document.getElementById('userAvatar');
+      if (avatarElem) {
+        const fullName = avatarElem.getAttribute('data-fullname');
+        
+        // Générer les initiales et la couleur
+        avatarElem.textContent = getInitials(fullName);
+        avatarElem.style.backgroundColor = stringToColor(fullName);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dossiers Fonciers Cameroun</title>
+  
+</head>
+<body>
+  <header>
+    <h1>Portail Fonciers Cameroun</h1>
+    <nav>
+      <a href="#dossiers">Mes Dossiers</a>
+      <a href="#geomètres">Géomètres</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+</body>
+</html>

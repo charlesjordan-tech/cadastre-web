@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistance - Cadastre Étranger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./cadastre code 2.html">
+    <link rel="stylesheet" href="./mes dossiers.html">
+    <link rel="stylesheet" href="./recherche.html">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: #f8fafc; color: #0f172a; }
+
+    header { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .logo { font-weight: 700; font-size: 1.15rem; color: #0f172a; }
+    .logo span { color: #0284c7; }
+    nav { display: flex; align-items: center; gap: 1.5rem; }
+    nav a { text-decoration: none; color: #475569; font-weight: 500; font-size: 0.9rem; }
+    nav a.active { color: #0284c7; font-weight: 600; }
+
+    .container { max-width: 1000px; margin: 3rem auto; padding: 0 1.5rem; }
+    .page-title { text-align: center; margin-bottom: 3rem; }
+    .page-title h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .page-title p { color: #64748b; }
+
+    .grid-help { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+    .help-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .help-card h2 { font-size: 1.2rem; margin-bottom: 1rem; color: #0f172a; display: flex; align-items: center; gap: 0.5rem; }
+
+    /* Formulaire */
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: #475569; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; outline: none; }
+    .btn-submit { background-color: #ea580c; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; }
+
+    /* FAQ List */
+    .faq-item { margin-bottom: 1.25rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 1rem; }
+    .faq-item h4 { font-size: 0.95rem; color: #0284c7; margin-bottom: 0.3rem; }
+    .faq-item p { font-size: 0.85rem; color: #64748b; line-height: 1.5; }
+
+    @media (max-width: 768px) { .grid-help { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo">📍 CADASTRE <span>ÉTRANGER</span></div>
+      <nav>
+        <a href="cadastre code 2.html">Accueil</a>
+        <a href="mes dossiers.html">Mes Dossiers</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-title">
+      <h1>Besoin d'aide pour vos démarches depuis l'étranger ?</h1>
+      <p>Nos conseillers et géomètres experts vous accompagnent à distance.</p>
+    </div>
+
+    <div class="grid-help">
+      
+      <!-- Rendez-vous / Contact -->
+      <div class="help-card">
+        <h2>📹 Réserver un entretien en visio</h2>
+        <form onsubmit="event.preventDefault(); window.location.href='connexion.html';">
+          <div class="form-group">
+            <label>Nom complet</label>
+            <input type="text" placeholder="Ex: Paul Martin" required>
+          </div>
+          <div class="form-group">
+            <label>Pays de résidence</label>
+            <input type="text" placeholder="Ex: France, Canada, USA..." required>
+          </div>
+          <div class="form-group">
+            <label for="sujet">Motif de la consultation</label>
+            <select id="sujet" onchange="toggleMotifAutre()" required>
+              <option value="">Sélectionnez un motif</option>
+              <option value="titre-foncier">Obtention de titre foncier</option>
+              <option value="litige">Gestion de litige</option>
+              <option value="achat">Vérification avant achat</option>
+              <option value="autre">Autre (Précisez)</option>
+            </select>
+          </div>
+          
+          <!-- Champ masqué par défaut, affiché uniquement si "Autre" est sélectionné -->
+          <div class="form-group" id="motifAutreGroup" style="display: none; margin-top: 0.75rem;">
+            <label for="motifAutre">Précisez votre motif</label>
+            <input type="text" id="motifAutre" placeholder="Décrivez brièvement le motif de votre demande...">
+          </div>
+          <div class="form-group">
+            <label>Message / Précisions</label>
+            <textarea rows="4" placeholder="Décrivez votre besoin..."></textarea>
+          </div>
+          <button type="button" class="btn-submit" onclick="sauvegarderEtSInscrire()">
+            Planifier un rendez-vous
+          </button>
+        </form>
+      </div>
+
+      <!-- FAQ Expatriés -->
+      <div class="help-card">
+        <h2>❓ Questions fréquentes</h2>
+        
+        <div class="faq-item">
+          <h4>Comment vérifier un titre foncier sans me déplacer ?</h4>
+          <p>Vous pouvez effectuer une demande de vérification en ligne en fournissant le numéro du titre et la localisation. Un rapport officiel vous sera transmis sous 5 jours ouvrés.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Puis-je mandater un géomètre à distance ?</h4>
+          <p>Oui, depuis votre espace "Mes Dossiers", vous pouvez mandater un géomètre agréé partenaire pour effectuer un bornage contradictoire sur le terrain.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Quels sont les modes de paiement acceptés pour la diaspora ?</h4>
+          <p>Les frais administratifs et de prestation peuvent être réglés par Carte Bancaire internationale, virement SWIFT ou via des services de paiement sécurisés.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+<!-- Vos autres éléments HTML au-dessus -->
+
+<script>
+  // Fonction pour affichage dynamique du champ "Autre"
+  function toggleMotifAutre() {
+      const sujetSelect = document.getElementById('sujet');
+      const motifAutreGroup = document.getElementById('motifAutreGroup');
+
+      if (sujetSelect && motifAutreGroup) {
+        if (sujetSelect.value === 'autre') {
+          motifAutreGroup.style.display = 'block';
+        } else {
+          motifAutreGroup.style.display = 'none';
+        }
+      }
+    }
+  // 1. Sauvegarder la saisie avant d'aller vers l'inscription
+  function sauvegarderEtSInscrire() {
+    const donneesAssistance = {
+      sujet: document.getElementById('sujet')?.value || '',
+      dateVisio: document.getElementById('dateVisio')?.value || '',
+      message: document.getElementById('message')?.value || ''
+    };
+
+    sessionStorage.setItem('assistanceDraft', JSON.stringify(donneesAssistance));
+    sessionStorage.setItem('returnUrl', window.location.pathname);
+
+    window.location.href = 'inscription.html';
+  }
+
+  // 2. Restaurer automatiquement les champs si l'utilisateur revient
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedData = sessionStorage.getItem('assistanceDraft');
+
+    if (savedData) {
+      const formData = JSON.parse(savedData);
+
+      if (document.getElementById('sujet') && formData.sujet) {
+        document.getElementById('sujet').value = formData.sujet;
+      }
+      if (document.getElementById('dateVisio') && formData.dateVisio) {
+        document.getElementById('dateVisio').value = formData.dateVisio;
+      }
+      if (document.getElementById('message') && formData.message) {
+        document.getElementById('message').value = formData.message;
+      }
+
+      // On efface la sauvegarde temporaire une fois restaurée
+      sessionStorage.removeItem('assistanceDraft');
+    }
+  });
+</script>
+
+</body>
+</html>
+</html>

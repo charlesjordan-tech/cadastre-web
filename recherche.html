@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recherche Foncière - Cadastre Étranger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./cadastre code 2.html">
+    <link rel="stylesheet" href="./mes dossiers.html">
+    <link rel="stylesheet" href="./page assistance.html">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: #f8fafc; color: #0f172a; }
+
+    header { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .logo { font-weight: 700; font-size: 1.15rem; color: #0f172a; }
+    .logo span { color: #0284c7; }
+    nav { display: flex; align-items: center; gap: 1.5rem; }
+    nav a { text-decoration: none; color: #475569; font-weight: 500; font-size: 0.9rem; }
+    nav a.active { color: #0284c7; font-weight: 600; }
+    .btn-login { background-color: #0284c7; color: #fff; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.875rem; }
+
+    /* Layout Recherche */
+    .search-header { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 1.5rem 2rem; }
+    .search-form { max-width: 1200px; margin: 0 auto; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .filter-input { flex: 1; min-width: 200px; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; }
+    .btn-search { background-color: #ea580c; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+
+    .main-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    
+    .map-placeholder { background: #e2e8f0; border-radius: 12px; height: 500px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #64748b; border: 1px dashed #94a3b8; }
+    
+    .results-list { display: flex; flex-direction: column; gap: 1rem; }
+    .parcel-card { background: white; border-radius: 10px; padding: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .parcel-card h3 { color: #0284c7; font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .parcel-meta { display: flex; gap: 1rem; margin: 0.75rem 0; font-size: 0.85rem; color: #64748b; }
+    .badge-status { background: #dcfce7; color: #166534; padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 600; font-size: 0.75rem; display: inline-block; }
+    .btn-details { display: inline-block; margin-top: 1rem; text-decoration: none; color: #0284c7; font-weight: 600; font-size: 0.875rem; }
+
+    @media (max-width: 768px) { .main-container { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo">📍 CADASTRE <span>ÉTRANGER</span></div>
+      <nav>
+        <a href="cadastre code 2.html">Accueil</a>
+        <a href="recherche.html" class="active">Recherche</a>
+        <a href="mes dossiers.html">Mes Dossiers</a>
+        <a href="page assistance.html">Assistance</a>
+        <a href="#" class="btn-login">Mon Compte</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="search-header">
+    <form class="search-form" onsubmit="event.preventDefault();">
+      <input type="text" class="filter-input" placeholder="Référence cadastrale ou N° Titre foncier">
+      <input type="text" class="filter-input" placeholder="Commune / Ville / Quartier">
+      <select class="filter-input">
+        <option value="">Type de bien</option>
+        <option value="terrain">Terrain nu</option>
+        <option value="bati">Propriété bâtie</option>
+        <option value="agricole">Parcelle agricole</option>
+      </select>
+      <button type="submit" class="btn-search">Filtrer</button>
+    </form>
+  </div>
+
+  <main class="main-container">
+    <div class="results-list">
+      <h2>Résultats de la recherche (2)</h2>
+      
+      <div class="parcel-card">
+        <span class="badge-status">Titre Valide & Vérifié</span>
+        <h3>Parcelle N° 452 - Bloc B</h3>
+        <p><strong>Emplacement :</strong> Zone Résidentielle Nord</p>
+        <div class="parcel-meta">
+          <span>📐 Surface : 650 m²</span>
+          <span>📜 Ref: TF-89302-2021</span>
+        </div>
+        <a href="#" class="btn-details">Consulter le dossier cadastral complet →</a>
+      </div>
+
+      <div class="parcel-card">
+        <span class="badge-status" style="background:#fef3c7; color:#92400e;">Procédure de Bornage en cours</span>
+        <h3>Parcelle N° 108 - Section 4</h3>
+        <p><strong>Emplacement :</strong> Quartier Akwa Extension</p>
+        <div class="parcel-meta">
+          <span>📐 Surface : 1 200 m²</span>
+          <span>📜 Ref: TF-10492-2023</span>
+        </div>
+        <a href="#" class="btn-details">Consulter l'état de la demande →</a>
+      </div>
+    </div>
+
+    <div class="map-placeholder">
+      <span style="font-size: 2.5rem; margin-bottom: 0.5rem;">🗺️</span>
+      <p>Aperçu cartographique des parcelles géolocalisées</p>
+    </div>
+  </main>
+
+</body>
+</html>

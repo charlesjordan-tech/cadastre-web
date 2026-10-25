@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<!-- Cette ligne indique au téléphone d'ajuster l'affichage à la largeur réelle de l'écran -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cadastre Etranger - Portail Fonciers</title>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./mes dossiers.html">
+    <link rel="stylesheet" href="./page assistance.html">
+	<style>
+		*{
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+			font-family: 'Inter', sans-serif;
+		}
+		body{
+			background-color: #f8fafc;
+			color: #0f172a;
+		}
+		/*barre de navigation*/
+		header{
+			background: #ffffff;
+			border-bottom: 1px solid #e2e8f0;
+			position: sticky;
+			top: 0;
+			z-index: 100;
+		}
+		.nav-container{
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+		}
+		.logo{
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			font-weight: 700;
+			color: #0f172a;
+			letter-spacing: 0.5px;
+		}
+		.logo span{
+			color: #0284c7;
+		}
+		nav{
+			display: flex;
+			align-items: center;
+			gap: 1.5rem;
+		}
+		nav a{
+			text-decoration: none;
+			color: #475569;
+			font-weight: 500;
+			font-size: 0.9rem;
+			transition: 0.2s;
+		}
+		.btn-login {
+  background-color: #0284c7; /* Couleur bleue du bouton */
+  color: #ffffff !important; /* Texte en blanc */
+  padding: 0.5rem 1.25rem;   /* Espacement intérieur (haut/bas et gauche/droite) */
+  border-radius: 6px;        /* Coins arrondis */
+  text-decoration: none;     /* Enlève le soulignement */
+  font-weight: 600;          /* Texte en semi-gras */
+  font-size: 0.875rem;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+.btn-login:hover {
+  background-color: #0369a1; /* Bleu plus foncé au survol de la souris */
+}
+		
+		/*hero section*/
+		.hero{
+			position: relative;
+			background: linear-gradient(rgba(15,23,42,0.55),rgba(15,23,42,0.55)),url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80')
+			center/cover no-repeat;
+			padding: 5rem 1.5rem 6rem;
+			text-align: center;
+			color: #ffffff;
+		}
+		.hero h1{
+			font-size: 2rem;
+			font-weight: 700;
+			margin-bottom: 2rem;
+			letter-spacing: 1px;
+		}
+		/*formulaire de recherche*/
+		.search-box{
+			max-width: 750px;
+			margin: 0 auto;
+			background: #ffffff;
+			padding: 6px;
+			border-radius: 8px;
+			display: flex;
+			gap: 8px;
+			box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+		}
+		.input-group{
+			flex: 1;
+			display: flex;
+			align-items: center;
+			background: #f1f5f9;
+			border-radius: 6px;
+			padding: 0 12px;
+		}
+		.input-group input{
+			width: 100%;
+			border: none;
+			background: transparent;
+			padding: 0.75rem 0.5rem;
+			font-size: 0.9rem;
+			outline: none;
+			color: #0f172a;
+		}
+		.btn-search{
+			background-color: #ea580c;
+			color: #ffffff;
+			border: none;
+			padding: 0 1.5rem;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 600;
+			font-size: 0.9rem;
+			transition: background 0.2s;
+		}
+		.btn-search:hover{
+			border-color: #c2410c;
+		}
+		/*cartes de fonctionalites*/
+		.features{
+			max-width: 1100px;
+			margin: -2.5rem auto 4rem;
+			position: relative;
+			z-index: grid;
+			grid-template-columns: repeat(auto-fit,minmax(280px, 1fr));
+		}
+		.card{
+			background: #ffffff;
+			border-radius: 12px;
+			padding: 2rem 1.5rem;
+			text-align: center;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+			border: 1px solid #e2e8f0;
+			transition: transform 0.2s, box-shadow 0.2ms;
+		}
+		.card-icon{
+			width: 52px;
+			height: 52px;
+			margin: 0 auto 1.25rem;
+			background: #e0f2fe;
+			color: #0284c7;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.4rem;
+		}
+		.card h3{
+			font-size: 0.85rem;
+			color: #64748b;
+			line-height: 1.5;
+		}
+		.card p{
+			font-size: 0.85;
+			color: #64748b;
+			line-height: 1.5;
+		}
+		@media (max-width: 768px){
+			.search-box{
+				flex-direction: column;
+			}
+			.hero h1{
+				font-size: 1.5rem;
+			}
+		}
+		/* ==========================================
+   RÈGLES D'ADAPTATION MOBILE (RESPONSIVE)
+   ========================================== */
+
+/* 1. Sécurité globale : empêche les débordements horizontaux */
+* {
+  box-sizing: border-box;
+}
+
+img, iframe, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 2. Adaptations pour smartphones (écrans de moins de 768px de large) */
+@media (max-width: 768px) {
+  
+  /* Conteneurs principaux : passage en 100% de largeur */
+  body {
+    padding: 0 10px;
+  }
+
+  .container, 
+  .hero-container, 
+  .form-container, 
+  .card-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+    margin: 10px 0 !important;
+  }
+
+  /* Transformation des grilles et colonnes en une seule colonne verticale */
+  .grid, 
+  .row, 
+  .form-row,
+  .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  /* Boutons et champs de formulaires ajustés pour les doigts */
+  input, 
+  select, 
+  textarea, 
+  button, 
+  .btn-submit {
+    width: 100% !important;
+    min-height: 48px; /* Taille idéale pour cliquer au toucher */
+    font-size: 16px !important; /* Empêche le zoom automatique sur iPhone */
+  }
+
+  /* Réduction proportionnelle des gros titres */
+  h1 { font-size: 1.6rem !important; }
+  h2 { font-size: 1.3rem !important; }
+  h3 { font-size: 1.1rem !important; }
+}
+@media (max-width: 768px) {
+  /* Aligne le logo et le menu verticalement pour éviter les chevauchements */
+  header, .navbar, .header-container {
+    flex-direction: column !important;
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+
+  nav, .nav-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  nav a, .nav-links a {
+    font-size: 13px !important;
+    padding: 4px 8px !important;
+    white-space: nowrap !important;
+  }
+}
+	</style>
+</haed>
+<body>
+	<header>
+		<div class="nav-container">
+			<div class="logo">
+				📍CADASTRE<span> DIASPORA</span>
+			</div>
+			<nav>
+
+				<a href="mes dossiers.html">Mes Dossiers</a>
+				<a href="page assistance.html">Assistance</a>
+				<a href="connexion.html" class="btn-login">Connexion</a>
+			</nav>
+		</div>
+	</header>
+	<section class="hero">
+		<h1>GEREZ VOS BIENS FONCIERS DEPUIS L'ETRANGER</h1>
+		<form class="search-box" action="recherche.html" method="GET">
+			<form class="search-box" action="recherche.html" method="GET">
+				<div class="input-group">
+				  <input type="text" name="parcelle" placeholder="Numéro de parcelle, adresse..." required>
+				</div>
+				<div class="input-group">
+				  <input type="text" name="ville" placeholder="Ville / Département" required>
+				</div>
+				<button type="submit" class="btn-search">Rechercher</button>
+			  </form>
+		</from>
+	</section>
+	<section class="features">
+		<div class="card">
+			<div class="card-icon">🗺️</div>
+			<h3>Rechercher une propriété</h3>
+			<p>Localisez rapidement toutes vos informations foncières et cadastrales à distance.</p>
+		</div>
+		<div class="card">
+			<div class="card-icon">📄</div>
+			<h3>Consulter mes dossiers</h3>
+			<p>Accedéz à vos démarches, extraits de plan et documents officiels en toute sécurité.</p>
+		</div>
+		<div class="card">
+			<div class="card-icon">📞</div>
+			<h3>Assistance Dédiée</h3>
+			<p>Un accompagnement speécifique pour répondre aux démarches des propriétaires de la diaspora.</p>
+		</div>
+		<div class="card">
+			<div class="card-icon">⚖️</div>
+			<h3>Notaire partenaire</h3>
+			<p>Mise en relation directe avec des notaires agréés pour valider vos transactions et sécuriser vos titres de propriété.</p>
+		</div>
+	</section>
+</body>
+</html>
