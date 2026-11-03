@@ -16,9 +16,7 @@
     nav { display: flex; align-items: center; gap: 1.5rem; }
     nav a { text-decoration: none; color: #475569; font-weight: 500; font-size: 0.9rem; }
     nav a:hover { color: #0284c7; }
-    .btn-login { background-color: #0284c7; color: #ffffff !important; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.875rem; }
 
-    /* Container Inscription */
     .signup-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1.5rem; }
     .signup-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; width: 100%; max-width: 560px; padding: 2.5rem 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
 
@@ -44,170 +42,41 @@
     .login-link a { color: #0284c7; font-weight: 600; text-decoration: none; }
     .login-link a:hover { text-decoration: underline; }
 
+    .phone-container { display: flex; gap: 0.5rem; position: relative; }
+    .country-select { position: relative; }
+    .selected-country-btn {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.75rem 0.8rem; border: 1px solid #cbd5e1; border-radius: 6px;
+      background: #ffffff; cursor: pointer; font-size: 0.9rem; font-weight: 500;
+      color: #334155; height: 100%; white-space: nowrap;
+    }
+    .selected-country-btn:hover { border-color: #0284c7; }
+    .arrow-icon { font-size: 0.65rem; color: #64748b; margin-left: 0.2rem; }
+
+    .country-dropdown {
+      display: none; position: absolute; top: calc(100% + 4px); left: 0;
+      width: 250px; max-height: 220px; overflow-y: auto;
+      background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); z-index: 100;
+    }
+    .country-dropdown.show { display: block; }
+    .country-option {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.65rem 0.8rem; cursor: pointer; font-size: 0.875rem; color: #1e293b;
+    }
+    .country-option:hover { background-color: #f1f5f9; }
+    .country-option .code { color: #64748b; font-weight: 500; }
+    .phone-container input[type="tel"] { flex: 1; }
+    .selected-country-btn img, .country-info img { width: 20px; height: auto; border-radius: 2px; }
+    .country-info { display: flex; align-items: center; gap: 0.5rem; }
+
+    .success-msg { background: #f0fdf4; color: #15803d; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; display: none; }
+    .error-msg { background: #fef2f2; color: #b91c1c; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; display: none; }
+
     @media (max-width: 600px) {
       .form-row { grid-template-columns: 1fr; }
+      .signup-card { padding: 1.75rem 1.25rem; }
     }
-    /* Conteneur du champ téléphone */
-.phone-container {
-  display: flex;
-  gap: 0.5rem;
-  position: relative;
-}
-
-/* Bouton du pays sélectionné */
-.country-select {
-  position: relative;
-}
-
-.selected-country-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.75rem 0.8rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  background: #ffffff;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #334155;
-  height: 100%;
-  white-space: nowrap;
-  transition: border-color 0.2s;
-}
-
-.selected-country-btn:hover {
-  border-color: #0284c7;
-}
-
-.arrow-icon {
-  font-size: 0.65rem;
-  color: #64748b;
-  margin-left: 0.2rem;
-}
-
-/* Liste déroulante des pays */
-.country-dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  width: 250px;
-  max-height: 220px;
-  overflow-y: auto;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-}
-
-.country-dropdown.show {
-  display: block;
-}
-
-.country-option {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.65rem 0.8rem;
-  cursor: pointer;
-  font-size: 0.875rem;
-  color: #1e293b;
-  transition: background 0.15s;
-}
-
-.country-option:hover {
-  background-color: #f1f5f9;
-}
-
-.country-option .code {
-  color: #64748b;
-  font-weight: 500;
-}
-
-/* Champ de saisie du numéro */
-.phone-container input[type="tel"] {
-  flex: 1;
-}
-/* Alignement du drapeau et du texte */
-.selected-country-btn img {
-  width: 20px;
-  height: auto;
-  border-radius: 2px;
-  display: block;
-}
-
-.country-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.country-info img {
-  width: 20px;
-  height: auto;
-  border-radius: 2px;
-}
-/* ==========================================
-   RÈGLES D'ADAPTATION MOBILE (RESPONSIVE)
-   ========================================== */
-
-/* 1. Sécurité globale : empêche les débordements horizontaux */
-* {
-  box-sizing: border-box;
-}
-
-img, iframe, video {
-  max-width: 100%;
-  height: auto;
-}
-
-/* 2. Adaptations pour smartphones (écrans de moins de 768px de large) */
-@media (max-width: 768px) {
-  
-  /* Conteneurs principaux : passage en 100% de largeur */
-  body {
-    padding: 0 10px;
-  }
-
-  .container, 
-  .hero-container, 
-  .form-container, 
-  .card-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 15px !important;
-    margin: 10px 0 !important;
-  }
-
-  /* Transformation des grilles et colonnes en une seule colonne verticale */
-  .grid, 
-  .row, 
-  .form-row,
-  .hero-content {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: 1fr !important;
-    gap: 15px !important;
-  }
-
-  /* Boutons et champs de formulaires ajustés pour les doigts */
-  input, 
-  select, 
-  textarea, 
-  button, 
-  .btn-submit {
-    width: 100% !important;
-    min-height: 48px; /* Taille idéale pour cliquer au toucher */
-    font-size: 16px !important; /* Empêche le zoom automatique sur iPhone */
-  }
-
-  /* Réduction proportionnelle des gros titres */
-  h1 { font-size: 1.6rem !important; }
-  h2 { font-size: 1.3rem !important; }
-  h3 { font-size: 1.1rem !important; }
-}
   </style>
 </head>
 <body>
@@ -216,8 +85,8 @@ img, iframe, video {
     <div class="nav-container">
       <a href="index.html" class="logo">📍 CADASTRE <span>DIASPORA</span></a>
       <nav>
-        <a href="cadastre code 2.html">Accueil</a>
-        <a href="assistance.html">Assistance</a>
+        <a href="index.html">Accueil</a>
+        <a href="page assistance.html">Assistance</a>
       </nav>
     </div>
   </header>
@@ -229,7 +98,10 @@ img, iframe, video {
         <p>Accédez à la gestion et au suivi de vos biens fonciers</p>
       </div>
 
-      <form onsubmit="event.preventDefault(); window.location.href='mes dossiers.html';">
+      <div id="errorMsg" class="error-msg"></div>
+      <div id="successMsg" class="success-msg"></div>
+
+      <form id="signupForm">
         
         <div class="form-row">
           <div class="form-group">
@@ -243,32 +115,29 @@ img, iframe, video {
         </div>
 
         <div class="form-group">
-          <label for="profile-type">Profil de l'utilisateur</label>
+          <label for="profile-type">Type de compte</label>
           <select id="profile-type" required>
+            <option value="">— Sélectionnez votre profil —</option>
             <option value="diaspora">Membre de la Diaspora / Expatrié</option>
             <option value="resident">Résident local</option>
-            <option value="professionnel">Professionnel (Notaire / Géomètre)</option>
+            <option value="professionnel">Professionnel (Géomètre / Notaire)</option>
           </select>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="country">Pays de résidence</label>
-            <input type="text" id="country" placeholder="Ex: France, Canada..." required>
+            <input type="text" id="country" placeholder="Ex: France, Canada, Cameroun..." required>
           </div>
           <div class="form-group">
             <label for="phone">Numéro de téléphone</label>
             <div class="phone-container">
-              
-              <!-- Bouton sélecteur de pays -->
               <div class="country-select">
                 <button type="button" class="selected-country-btn" id="countryBtn">
                   <img id="selectedFlag" src="https://flagcdn.com/w20/fr.png" width="20" alt="France">
                   <span id="selectedCode">+33</span>
                   <span class="arrow-icon">▼</span>
                 </button>
-          
-                <!-- Menu déroulant des pays -->
                 <div class="country-dropdown" id="countryDropdown">
                   <div class="country-option" data-flag="https://flagcdn.com/w20/fr.png" data-code="+33">
                     <span class="country-info"><img src="https://flagcdn.com/w20/fr.png" width="20" alt="France"> France</span>
@@ -302,27 +171,18 @@ img, iframe, video {
                     <span class="country-info"><img src="https://flagcdn.com/w20/ga.png" width="20" alt="Gabon"> Gabon</span>
                     <span class="code">+241</span>
                   </div>
-                  <div class="country-option" data-flag="https://flagcdn.com/w20/cg.png" data-code="+242">
-                    <span class="country-info"><img src="https://flagcdn.com/w20/cg.png" width="20" alt="Congo"> Congo</span>
-                    <span class="code">+242</span>
-                  </div>
-                  <div class="country-option" data-flag="https://flagcdn.com/w20/cd.png" data-code="+243">
-                    <span class="country-info"><img src="https://flagcdn.com/w20/cd.png" width="20" alt="RDC"> RDC</span>
-                    <span class="code">+243</span>
-                  </div>
                   <div class="country-option" data-flag="https://flagcdn.com/w20/us.png" data-code="+1">
                     <span class="country-info"><img src="https://flagcdn.com/w20/us.png" width="20" alt="États-Unis"> États-Unis</span>
                     <span class="code">+1</span>
                   </div>
                 </div>
               </div>
-          
-              <!-- Champ pour le reste du numéro -->
               <input type="tel" id="phone" placeholder="6 12 34 56 78" required>
               <input type="hidden" id="countryCodeInput" name="country_code" value="+33">
             </div>
           </div>
-          </div>
+        </div>
+
         <div class="form-group">
           <label for="email">Adresse e-mail</label>
           <input type="email" id="email" placeholder="nom@exemple.com" required>
@@ -331,7 +191,7 @@ img, iframe, video {
         <div class="form-row">
           <div class="form-group">
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" placeholder="••••••••" required>
+            <input type="password" id="password" placeholder="••••••••" required minlength="6">
           </div>
           <div class="form-group">
             <label for="confirm-password">Confirmer le mot de passe</label>
@@ -340,7 +200,7 @@ img, iframe, video {
         </div>
 
         <label class="terms-option">
-          <input type="checkbox" required>
+          <input type="checkbox" id="terms" required>
           <span>J'accepte les <a href="#">Conditions Générales d'Utilisation</a> et la politique de protection des données personnelles.</span>
         </label>
 
@@ -353,17 +213,15 @@ img, iframe, video {
     </div>
   </main>
 
-</body>
-<script>
+  <script>
+    // Sélecteur de pays
     const countryBtn = document.getElementById('countryBtn');
     const countryDropdown = document.getElementById('countryDropdown');
     const selectedFlag = document.getElementById('selectedFlag');
     const selectedCode = document.getElementById('selectedCode');
     const countryCodeInput = document.getElementById('countryCodeInput');
     const options = document.querySelectorAll('.country-option');
-    const form = document.querySelector('form');
 
-    // Menu déroulant des pays
     countryBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       countryDropdown.classList.toggle('show');
@@ -371,13 +229,9 @@ img, iframe, video {
 
     options.forEach(option => {
       option.addEventListener('click', () => {
-        const flagUrl = option.getAttribute('data-flag');
-        const code = option.getAttribute('data-code');
-
-        selectedFlag.src = flagUrl;
-        selectedCode.textContent = code;
-        countryCodeInput.value = code;
-
+        selectedFlag.src = option.getAttribute('data-flag');
+        selectedCode.textContent = option.getAttribute('data-code');
+        countryCodeInput.value = option.getAttribute('data-code');
         countryDropdown.classList.remove('show');
       });
     });
@@ -386,24 +240,62 @@ img, iframe, video {
       countryDropdown.classList.remove('show');
     });
 
-    // Redirection après inscription vers la page d'origine
-    form.addEventListener('submit', (e) => {
+    // Soumission du formulaire d'inscription
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Récupère l'URL de retour si elle existe
-      const returnUrl = sessionStorage.getItem('returnUrl');
+      const prenom = document.getElementById('prenom').value.trim();
+      const nom = document.getElementById('nom').value.trim();
+      const type = document.getElementById('profile-type').value;
+      const country = document.getElementById('country').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
 
-      // Nettoie la mémoire
-      sessionStorage.removeItem('returnUrl');
+      const errorMsg = document.getElementById('errorMsg');
+      const successMsg = document.getElementById('successMsg');
 
-      // Redirige dynamiquement
-      if (returnUrl) {
-        window.location.href = returnUrl;
-      } else {
-        window.location.href = 'mes dossiers.html';
+      // Validation simple
+      if (password !== confirmPassword) {
+        errorMsg.textContent = 'Les mots de passe ne correspondent pas.';
+        errorMsg.style.display = 'block';
+        successMsg.style.display = 'none';
+        return;
       }
+
+      if (!type) {
+        errorMsg.textContent = 'Veuillez sélectionner un type de compte.';
+        errorMsg.style.display = 'block';
+        successMsg.style.display = 'none';
+        return;
+      }
+
+      // Création de l'utilisateur
+      const user = {
+        email: email,
+        fullName: prenom + ' ' + nom,
+        type: type, // 'diaspora' | 'resident' | 'professionnel'
+        country: country,
+        phone: countryCodeInput.value + ' ' + phone,
+        loggedIn: true,
+        createdAt: new Date().toISOString()
+      };
+
+      // Sauvegarde dans localStorage (simulation de base de données)
+      localStorage.setItem('cadastreUser', JSON.stringify(user));
+
+      successMsg.textContent = 'Compte créé avec succès ! Redirection...';
+      successMsg.style.display = 'block';
+      errorMsg.style.display = 'none';
+
+      // Redirection
+      setTimeout(() => {
+        const returnUrl = sessionStorage.getItem('returnUrl') || 'mes dossiers.html';
+        sessionStorage.removeItem('returnUrl');
+        window.location.href = returnUrl;
+      }, 900);
     });
   </script>
-
 </body>
 </html>

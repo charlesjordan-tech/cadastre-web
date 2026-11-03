@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion - Cadastre Étranger</title>
+  <title>Connexion - Cadastre Diaspora</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -17,7 +17,6 @@
     nav a { text-decoration: none; color: #475569; font-weight: 500; font-size: 0.9rem; }
     nav a:hover { color: #0284c7; }
 
-    /* Container de Connexion */
     .login-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1.5rem; }
     .login-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; width: 100%; max-width: 440px; padding: 2.5rem 2rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
     
@@ -45,118 +44,23 @@
     .signup-link { text-align: center; font-size: 0.875rem; color: #475569; }
     .signup-link a { color: #ea580c; font-weight: 600; text-decoration: none; }
     .signup-link a:hover { text-decoration: underline; }
-    /* ==========================================
-   RÈGLES D'ADAPTATION MOBILE (RESPONSIVE)
-   ========================================== */
 
-/* 1. Sécurité globale : empêche les débordements horizontaux */
-* {
-  box-sizing: border-box;
-}
+    .error-msg { background: #fef2f2; color: #b91c1c; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; display: none; }
+    .success-msg { background: #f0fdf4; color: #15803d; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem; display: none; }
 
-img, iframe, video {
-  max-width: 100%;
-  height: auto;
-}
-
-/* 2. Adaptations pour smartphones (écrans de moins de 768px de large) */
-@media (max-width: 768px) {
-  
-  /* Conteneurs principaux : passage en 100% de largeur */
-  body {
-    padding: 0 10px;
-  }
-
-  .container, 
-  .hero-container, 
-  .form-container, 
-  .card-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 15px !important;
-    margin: 10px 0 !important;
-  }
-
-  /* Transformation des grilles et colonnes en une seule colonne verticale */
-  .grid, 
-  .row, 
-  .form-row,
-  .hero-content {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: 1fr !important;
-    gap: 15px !important;
-  }
-
-  /* Boutons et champs de formulaires ajustés pour les doigts */
-  input, 
-  select, 
-  textarea, 
-  button, 
-  .btn-submit {
-    width: 100% !important;
-    min-height: 48px; /* Taille idéale pour cliquer au toucher */
-    font-size: 16px !important; /* Empêche le zoom automatique sur iPhone */
-  }
-
-  /* Réduction proportionnelle des gros titres */
-  h1 { font-size: 1.6rem !important; }
-  h2 { font-size: 1.3rem !important; }
-  h3 { font-size: 1.1rem !important; }
-}
-  /* --- Réduction mobile Agressives et Globale --- */
-@media (max-width: 768px) {
-  /* Assurer que le parent n'est pas trop large */
-  .login-wrapper {
-    width: 100% !important;
-    padding: 10px !important;
-    box-sizing: border-box;
-  }
-  
-  /* Réduire drastiquement l'échelle de la carte spécifique */
-  .login-card {
-    padding: 1rem 0.75rem !important; /* Réduction agressive */
-    width: 92% !important; /* Un peu plus flexible */
-    max-width: 360px; /* Force une taille maximum */
-    margin: 10px auto !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.02); /* Ombre minimale */
-  }
-
-  /* Réduire les éléments internes pour réduire l'échelle globale */
-  .login-header h2 {
-    font-size: 1.1rem !important;
-    margin-bottom: 0.75rem !important;
-  }
-
-  /* Compacter les groupes d'entrée */
-  .input-group input {
-    padding: 0.5rem !important;
-    font-size: 14px;
-    min-height: 38px;
-  }
-
-  /* Compacter les options du formulaire et le pied de page */
-  .form-options, .login-footer {
-    font-size: 11px !important;
-    margin: 8px 0 !important;
-  }
-  
-  .btn-submit {
-    padding: 0.6rem !important;
-    font-size: 15px;
-  }
-}
-</style>
-</style>
+    @media (max-width: 768px) {
+      .login-wrapper { padding: 1.5rem 1rem; }
+      .login-card { padding: 1.75rem 1.25rem; }
+    }
   </style>
 </head>
 <body>
 
   <header>
     <div class="nav-container">
-      <a href="cadastre code 2.html" class="logo">📍 CADASTRE <span>DIASPORA</span></a>
+      <a href="index.html" class="logo">📍 CADASTRE <span>DIASPORA</span></a>
       <nav>
-        <a href="cadastre code 2.html">Accueil</a>
+        <a href="index.html">Accueil</a>
         <a href="page assistance.html">Assistance</a>
       </nav>
     </div>
@@ -165,11 +69,14 @@ img, iframe, video {
   <main class="login-wrapper">
     <div class="login-card">
       <div class="login-header">
-        <h1>Espace Diaspora<form onsubmit="event.preventDefault(); window.location.href='connexion.html';"></form></h1>
+        <h1>Espace Diaspora</h1>
         <p>Connectez-vous pour suivre vos dossiers fonciers</p>
       </div>
 
-      <form onsubmit="event.preventDefault(); window.location.href='mes-dossiers.html';">
+      <div id="errorMsg" class="error-msg"></div>
+      <div id="successMsg" class="success-msg"></div>
+
+      <form id="loginForm">
         <div class="form-group">
           <label for="email">Adresse e-mail</label>
           <input type="email" id="email" placeholder="nom@exemple.com" required>
@@ -182,7 +89,7 @@ img, iframe, video {
 
         <div class="form-options">
           <label class="remember-me">
-            <input type="checkbox"> Se souvenir de moi
+            <input type="checkbox" id="rememberMe"> Se souvenir de moi
           </label>
           <a href="#" class="forgot-pwd">Mot de passe oublié ?</a>
         </div>
@@ -196,10 +103,64 @@ img, iframe, video {
 
       <div class="signup-link">
         Vous n'avez pas encore de compte ? <br>
-        <a href="inscription.html">Créer un compte résident / diaspora</a>
+        <a href="inscription.html">Créer un compte résident / diaspora / pro</a>
       </div>
     </div>
   </main>
 
+  <script>
+    // Vérifie si déjà connecté
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('cadastreUser') || 'null');
+      if (user && user.loggedIn) {
+        // Déjà connecté → redirige vers mes dossiers
+        window.location.href = 'mes dossiers.html';
+      }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Simulation simple de connexion
+      // Dans une vraie app, on vérifierait contre un backend
+      // Ici on accepte n'importe quel email/mot de passe non vide pour la démo
+      // et on récupère le profil s'il existe déjà (après inscription)
+
+      let storedUser = JSON.parse(localStorage.getItem('cadastreUser') || 'null');
+
+      // Si l'utilisateur s'est déjà inscrit avec cet email, on le récupère
+      if (storedUser && storedUser.email === email) {
+        // On considère que le mot de passe est correct pour la démo
+        storedUser.loggedIn = true;
+        localStorage.setItem('cadastreUser', JSON.stringify(storedUser));
+      } else {
+        // Première connexion ou compte inexistant → on crée un compte client par défaut
+        const newUser = {
+          email: email,
+          fullName: email.split('@')[0],
+          type: 'diaspora', // par défaut
+          loggedIn: true,
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('cadastreUser', JSON.stringify(newUser));
+        storedUser = newUser;
+      }
+
+      // Message de succès
+      const successMsg = document.getElementById('successMsg');
+      successMsg.textContent = 'Connexion réussie ! Redirection...';
+      successMsg.style.display = 'block';
+
+      // Redirection après un court délai
+      setTimeout(() => {
+        const returnUrl = sessionStorage.getItem('returnUrl') || 'mes dossiers.html';
+        sessionStorage.removeItem('returnUrl');
+        window.location.href = returnUrl;
+      }, 800);
+    });
+  </script>
 </body>
 </html>

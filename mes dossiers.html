@@ -3,28 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mes Dossiers - Cadastre Étranger</title>
+  <title>Mes Dossiers - Cadastre Diaspora</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./cadastre code 2.html">
-    <link rel="stylesheet" href="./page assistance.html">
-    <link rel="stylesheet" href="./recherche.html">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     body { background-color: #f8fafc; color: #0f172a; }
 
     header { background: #ffffff; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
-    .logo { font-weight: 700; font-size: 1.15rem; color: #0f172a; }
+    .logo { font-weight: 700; font-size: 1.15rem; color: #0f172a; text-decoration: none; }
     .logo span { color: #0284c7; }
     nav { display: flex; align-items: center; gap: 1.5rem; }
     nav a { text-decoration: none; color: #475569; font-weight: 500; font-size: 0.9rem; }
     nav a.active { color: #0284c7; font-weight: 600; }
+    nav a:hover { color: #0284c7; }
+
+    .user-menu { display: flex; align-items: center; gap: 1rem; }
+    .user-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: #ffffff; font-weight: bold; font-size: 15px;
+      text-decoration: none; text-transform: uppercase;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    .user-info { font-size: 0.85rem; color: #475569; }
+    .user-info strong { color: #0f172a; display: block; }
+    .badge-type {
+      display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem;
+      border-radius: 999px; font-weight: 600; margin-top: 2px;
+    }
+    .badge-client { background: #e0f2fe; color: #0369a1; }
+    .badge-pro { background: #fef3c7; color: #b45309; }
+
+    .btn-logout {
+      background: transparent; border: 1px solid #cbd5e1; color: #64748b;
+      padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.8rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-logout:hover { background: #f1f5f9; color: #0f172a; }
 
     .container { max-width: 1100px; margin: 3rem auto; padding: 0 1.5rem; }
-    .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-    .btn-new { background-color: #0284c7; color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 0.875rem; }
+    .dashboard-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .btn-new { background-color: #0284c7; color: white; border: none; padding: 0.75rem 1.25rem; border-radius: 6px; font-weight: 600; text-decoration: none; font-size: 0.875rem; display: inline-block; }
+    .btn-new:hover { background-color: #0369a1; }
 
-    /* Table des dossiers */
     .table-container { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow-x: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
     table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
     th { background-color: #f1f5f9; padding: 1rem 1.25rem; font-weight: 600; color: #475569; border-bottom: 1px solid #e2e8f0; }
@@ -38,121 +60,175 @@
 
     .btn-action { color: #0284c7; text-decoration: none; font-weight: 600; }
     .btn-action:hover { text-decoration: underline; }
-    .user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 15px;
-  text-decoration: none;
-  text-transform: uppercase;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
-}
 
-.user-avatar:hover {
-  transform: scale(1.05);
-}
-/* ==========================================
-   RÈGLES D'ADAPTATION MOBILE (RESPONSIVE)
-   ========================================== */
+    /* Section spécifique Professionnel */
+    .pro-section { display: none; margin-bottom: 2.5rem; }
+    .pro-section.visible { display: block; }
+    .pro-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 1rem; }
+    .pro-card {
+      background: white; border: 1px solid #e2e8f0; border-radius: 10px;
+      padding: 1.5rem; text-align: center;
+    }
+    .pro-card h3 { font-size: 1rem; margin-bottom: 0.5 reg; color: #0f172a; }
+    .pro-card p { font-size: 0.85rem; color: #64748b; }
+    .pro-card .number { font-size: 1.8rem; font-weight: 700; color: #0284c7; margin: 0.5rem 0; }
 
-/* 1. Sécurité globale : empêche les débordements horizontaux */
-* {
-  box-sizing: border-box;
-}
+    .client-section { display: block; }
+    .client-section.hidden { display: none; }
 
-img, iframe, video {
-  max-width: 100%;
-  height: auto;
-}
-
-/* 2. Adaptations pour smartphones (écrans de moins de 768px de large) */
-@media (max-width: 768px) {
-  
-  /* Conteneurs principaux : passage en 100% de largeur */
-  body {
-    padding: 0 10px;
-  }
-
-  .container, 
-  .hero-container, 
-  .form-container, 
-  .card-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 15px !important;
-    margin: 10px 0 !important;
-  }
-
-  /* Transformation des grilles et colonnes en une seule colonne verticale */
-  .grid, 
-  .row, 
-  .form-row,
-  .hero-content {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-columns: 1fr !important;
-    gap: 15px !important;
-  }
-
-  /* Boutons et champs de formulaires ajustés pour les doigts */
-  input, 
-  select, 
-  textarea, 
-  button, 
-  .btn-submit {
-    width: 100% !important;
-    min-height: 48px; /* Taille idéale pour cliquer au toucher */
-    font-size: 16px !important; /* Empêche le zoom automatique sur iPhone */
-  }
-
-  /* Réduction proportionnelle des gros titres */
-  h1 { font-size: 1.6rem !important; }
-  h2 { font-size: 1.3rem !important; }
-  h3 { font-size: 1.1rem !important; }
-}
+    @media (max-width: 768px) {
+      .nav-container { flex-direction: column; gap: 0.75rem; padding: 1rem; }
+      nav { flex-wrap: wrap; justify-content: center; }
+      .dashboard-header { flex-direction: column; }
+      .user-menu { width: 100%; justify-content: space-between; }
+    }
   </style>
 </head>
 <body>
 
   <header>
     <div class="nav-container">
-      <div class="logo">📍 CADASTRE <span>ÉTRANGER</span></div>
+      <a href="index.html" class="logo">📍 CADASTRE <span>DIASPORA</span></a>
       <nav>
-        <a href="cadastre code 2.html">Accueil</a>
+        <a href="index.html">Accueil</a>
         <a href="page assistance.html">Assistance</a>
-        <a href="#" class="user-avatar" id="userAvatar" data-fullname="Jean Dupont (Expatrié)" title="Jean Dupont (Expatrié)"></a>
+        <a href="recherche.html">Recherche</a>
+        <div class="user-menu" id="userMenu">
+          <!-- Rempli dynamiquement par JS -->
+        </div>
       </nav>
     </div>
-    
   </header>
 
   <main class="container">
-    <div class="dashboard-header">
-      <div>
-        <h1>Suivi de vos dossiers fonciers</h1>
-        <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.25rem;">Consultez l'avancement de vos demandes et téléchargez vos documents certifiés.</p>
+    <!-- Section Professionnel (visible seulement pour les pros) -->
+    <div class="pro-section" id="proSection">
+      <h1 style="margin-bottom: 0.5rem;">Espace Professionnel</h1>
+      <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">Tableau de bord géomètre / notaire partenaire</p>
+      
+      <div class="pro-cards">
+        <div class="pro-card">
+          <h3>Dossiers clients assignés</h3>
+          <div class="number">12</div>
+          <p>En cours de traitement</p>
+        </div>
+        <div class="pro-card">
+          <h3>Bornages à réaliser</h3>
+          <div class="number">5</div>
+          <p>Cette semaine</p>
+        </div>
+        <div class="pro-card">
+          <h3>Rapports à valider</h3>
+          <div class="number">3</div>
+          <p>En attente de signature</p>
+        </div>
       </div>
     </div>
 
-    <div class="table-container">
-      <table>
-        <thead>
+    <!-- Section Client / Diaspora -->
+    <div class="client-section" id="clientSection">
+      <div class="dashboard-header">
+        <div>
+          <h1 id="pageTitle">Suivi de vos dossiers fonciers</h1>
+          <p style="color: #64748b; font-size: 0.9rem; margin-top: 0.25rem;" id="pageSubtitle">
+            Consultez l'avancement de vos demandes et téléchargez vos documents certifiés.
+          </p>
+        </div>
+        <a href="page assistance.html" class="btn-new">+ Nouvelle demande</a>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>N° de Dossier</th>
+              <th>Type de démarche</th>
+              <th>Parcelle concernée</th>
+              <th>Date d'ouverture</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="dossiersBody">
+            <!-- Contenu injecté dynamiquement -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ========== PROTECTION D'ACCÈS ==========
+    const user = JSON.parse(localStorage.getItem('cadastreUser') || 'null');
+
+    if (!user || !user.loggedIn) {
+      // Pas connecté → on sauvegarde la page demandée et on renvoie vers login
+      sessionStorage.setItem('returnUrl', 'mes dossiers.html');
+      window.location.href = 'connexion.html';
+    } else {
+      // Connecté → on affiche l'interface
+      initDashboard(user);
+    }
+
+    function initDashboard(user) {
+      // Avatar + menu utilisateur
+      const userMenu = document.getElementById('userMenu');
+      const initials = getInitials(user.fullName || user.email);
+      const color = stringToColor(user.fullName || user.email);
+      const isPro = user.type === 'professionnel';
+
+      const typeLabel = isPro ? 'Professionnel' : (user.type === 'resident' ? 'Résident' : 'Diaspora / Expatrié');
+      const badgeClass = isPro ? 'badge-pro' : 'badge-client';
+
+      userMenu.innerHTML = `
+        <div class="user-info">
+          <strong>${user.fullName || user.email.split('@')[0]}</strong>
+          <span class="badge-type ${badgeClass}">${typeLabel}</span>
+        </div>
+        <div class="user-avatar" style="background-color: ${color}">${initials}</div>
+        <button class="btn-logout" onclick="logout()">Déconnexion</button>
+      `;
+
+      // Affichage conditionnel selon le type de compte
+      if (isPro) {
+        document.getElementById('proSection').classList.add('visible');
+        document.getElementById('pageTitle').textContent = 'Dossiers clients suivis';
+        document.getElementById('pageSubtitle').textContent = 'Gérez les dossiers qui vous ont été assignés par les clients de la diaspora.';
+      }
+
+      // Injection des dossiers (exemple)
+      const tbody = document.getElementById('dossiersBody');
+      if (isPro) {
+        // Vue Professionnel
+        tbody.innerHTML = `
           <tr>
-            <th>N° de Dossier</th>
-            <th>Type de démarche</th>
-            <th>Parcelle concernée</th>
-            <th>Date d'ouverture</th>
-            <th>Statut</th>
-            <th>Action</th>
+            <td><strong>#DOS-2026-089</strong></td>
+            <td>Extrait de Plan Cadastral</td>
+            <td>Parcelle N° 452 – Yaoundé</td>
+            <td>12 Fév 2026</td>
+            <td><span class="status status-completed">Terminé</span></td>
+            <td><a href="#" class="btn-action">Voir rapport</a></td>
           </tr>
-        </thead>
-        <tbody>
+          <tr>
+            <td><strong>#DOS-2026-114</strong></td>
+            <td>Vérification Titre Foncier</td>
+            <td>Parcelle N° 108 – Douala</td>
+            <td>01 Mar 2026</td>
+            <td><span class="status status-pending">En cours</span></td>
+            <td><a href="#" class="btn-action">Mettre à jour</a></td>
+          </tr>
+          <tr>
+            <td><strong>#DOS-2026-201</strong></td>
+            <td>Bornage contradictoire</td>
+            <td>Lot 27 – Kribi</td>
+            <td>18 Mar 2026</td>
+            <td><span class="status status-review">À planifier</span></td>
+            <td><a href="#" class="btn-action">Planifier visite</a></td>
+          </tr>
+        `;
+      } else {
+        // Vue Client / Diaspora
+        tbody.innerHTML = `
           <tr>
             <td><strong>#DOS-2026-089</strong></td>
             <td>Demande d'Extrait de Plan Cadastral</td>
@@ -177,45 +253,34 @@ img, iframe, video {
             <td><span class="status status-review">Complément requis</span></td>
             <td><a href="#" class="btn-action">📤 Joindre une pièce</a></td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
-  <script>
-    // 1. Fonction pour générer une couleur unique et constante basée sur le nom
+        `;
+      }
+    }
+
+    function logout() {
+      const user = JSON.parse(localStorage.getItem('cadastreUser') || 'null');
+      if (user) {
+        user.loggedIn = false;
+        localStorage.setItem('cadastreUser', JSON.stringify(user));
+      }
+      window.location.href = 'connexion.html';
+    }
+
     function stringToColor(str) {
       let hash = 0;
       for (let i = 0; i < str.length; i++) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash);
       }
-      // Génère une teinte HSL harmonieuse (Saturation: 65%, Luminosité: 45%)
       const h = Math.abs(hash) % 360;
       return `hsl(${h}, 65%, 45%)`;
     }
-  
-    // 2. Fonction pour extraire les initiales (ex: "Jean Dupont (Expatrié)" -> "JD")
+
     function getInitials(fullName) {
-      // Supprime le texte entre parenthèses comme "(Expatrié)"
       const cleanName = fullName.replace(/\s*\(.*?\)\s*/g, '').trim();
       const parts = cleanName.split(/\s+/);
-  
-      if (parts.length === 1) {
-        return parts[0].substring(0, 2).toUpperCase();
-      }
+      if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
       return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
     }
-  
-    // 3. Application de l'avatar au chargement de la page
-    document.addEventListener('DOMContentLoaded', () => {
-      const avatarElem = document.getElementById('userAvatar');
-      if (avatarElem) {
-        const fullName = avatarElem.getAttribute('data-fullname');
-        
-        // Générer les initiales et la couleur
-        avatarElem.textContent = getInitials(fullName);
-        avatarElem.style.backgroundColor = stringToColor(fullName);
-      }
-    });
   </script>
 </body>
 </html>
